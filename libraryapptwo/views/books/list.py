@@ -2,8 +2,10 @@ import sqlite3
 from django.shortcuts import render
 from libraryapptwo.models import Book
 from libraryapptwo.models import model_factory
+from django.contrib.auth.decorators import login_required
 from ..connection import Connection
 
+@login_required
 def book_list(request):
     if request.method == 'GET':
         with sqlite3.connect(Connection.db_path) as conn:
