@@ -1,5 +1,5 @@
 import sqlite3
-from django.shortcuts import render
+from django.shortcuts import render, reverse, redirect
 from libraryapptwo.models import Book
 from libraryapptwo.models import model_factory
 from django.contrib.auth.decorators import login_required
@@ -46,3 +46,20 @@ def book_list(request):
         }
 
         return render(request, template, context)
+
+    elif request.method == 'POST':
+        form_data = request.POST
+
+        with sqlite3.connect(Connection.db_path) as conn:
+            db_cursor = conn.cursor()
+
+            db_cursor.execute("""
+            INSERT INTO libraryapptwo_book
+            (
+                title, author, isbn, year_published, location_id, librarian_id
+            )
+            VALUES (?, ?, ?, ?, ?, ?)
+            """,
+            (form_data['title'], form_data['author'], form_data['isbn'], form_data['year_published'], request.user.librarian.id, form_data["location"]))
+
+        return redirect(reverse('libraryapptwo:books'))
