@@ -21,6 +21,8 @@ def get_libraries():
 
         return db_cursor.fetchall()
 
+
+# login required decorator will divert to login screen if user not logged in
 @login_required
 def book_form(request):
     if request.method == 'GET':
