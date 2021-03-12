@@ -36,3 +36,21 @@ def book_details(request, book_id):
         }
 
         return render(request, template, context)
+
+    if request.method == 'POST':
+        form_data = request.POST
+
+    # checking to see this post is to delete
+        if (
+            "actual_method" in form_data
+            and form_data["actual_method"] == "DELETE"
+        ):
+            with sqlite3.connect(Connection.db_path) as conn:
+                db_cursor = conn.cursor()
+
+                db_cursor.execute("""
+                DELETE FROM libraryapptwo_book
+                WHERE id = ?
+                """, (book_id,))
+
+            return redirect(reverse('libraryapptwo:books'))
