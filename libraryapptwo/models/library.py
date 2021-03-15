@@ -7,10 +7,10 @@ class Library(models.Model):
 
     class Meta:
         verbose_name = ("library")
-        verbose_name_plural = ("librarys")
+        verbose_name_plural = ("libraries")
 
     def __str__(self):
-        return self.name
+        return self.title
 
     def get_absolute_url(self):
         return reverse("library_detail", kwargs={"pk": self.pk})
