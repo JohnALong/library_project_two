@@ -3,21 +3,25 @@
 <html>
 
 <head>
- <meta charset="utf-8">
- <title>Library</title>
+    <meta charset="utf-8">
+    <title>Library</title>
 
-<style>
-    .navList {
-        list-style-type: none;
-        display: flex;
-        border: 1px solid lightgray;
-        padding: 1em;
-    }
+    {% comment %} <style>
+        .navList {
+            list-style-type: none;
+            display: flex;
+            border: 1px solid lightgray;
+            padding: 1em;
+        }
 
-    .navList__route {
-        margin: 0 0.5em;
-    }
-</style>
+        .navList__route {
+            margin: 0 0.5em;
+        }
+    </style> {% endcomment %}
+
+    <link rel="stylesheet" href="{% static 'styles/base.css' %}" />
+    {% block css %}
+    {% endblock %}
 
 </head>
 
@@ -25,14 +29,20 @@
 
     <nav id="site-nav">
         <ol class="navList">
+            <li class="navList__route"><a href="{% url 'libraryapptwo:home' %}">Home</a></li>
             <li class="navList__route"><a href="{% url 'libraryapptwo:libraries' %}">Libraries</a></li>
             <li class="navList__route"><a href="{% url 'libraryapptwo:books' %}">Books</a></li>
             <li class="navList__route"><a href="{% url 'libraryapptwo:librarians' %}">Librarians</a></li>
+            <li class="navList__route"><a href="{% url 'libraryapptwo:logout' %}">Logout</a></li>
         </ol>
     </nav>
-
-    {% block content %}
-    {% endblock %}
+    <main class="main-content">
+        {% block content %}
+        {% endblock %}
+    </main>
+    
+    {% block scripts %}
+    {% endblock scripts %}
 
 </body>
 </html>
